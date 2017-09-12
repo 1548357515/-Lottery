@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.Mapper.PlanPk10Mapper" >
+  <resultMap id="BaseResultMap" type="com.Pojo.PlanPk10" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="planId" property="planid" jdbcType="BIGINT" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="expect" property="expect" jdbcType="BIGINT" />
+    <result column="planNumber" property="plannumber" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="profit" property="profit" jdbcType="DECIMAL" />
+    <result column="openTime" property="opentime" jdbcType="TIMESTAMP" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, planId, state, expect, planNumber, amount, profit, openTime, createTime, updateTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.Pojo.PlanPk10Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from plan_pk10
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from plan_pk10
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByDate" resultMap="BaseResultMap"  parameterType="java.util.HashMap">  
+        select 
+        <include refid="Base_Column_List" />
+         from  plan_pk10  
+        <where>  
+        <if test="id!=null and id!='' ">  
+          planId=#{id,jdbcType=BIGINT}
+        </if>
+        <if test="startTime!=null and startTime!='' ">  
+         and  createTime &gt;=#{startTime}    
+        </if>  
+        <if test="endTime!=null and endTime!=''">  
+        and  updateTime &lt;=#{endTime}  
+        </if>  
+       </where>    
+    </select>  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from plan_pk10
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.Pojo.PlanPk10Example" >
+    delete from plan_pk10
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.Pojo.PlanPk10" >
+    insert into plan_pk10 (id, planId, state, 
+      expect, planNumber, amount, 
+      profit, openTime, createTime, 
+      updateTime)
+    values (#{id,jdbcType=BIGINT}, #{planid,jdbcType=BIGINT}, #{state,jdbcType=INTEGER}, 
+      #{expect,jdbcType=BIGINT}, #{plannumber,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
+      #{profit,jdbcType=DECIMAL}, #{opentime,jdbcType=TIMESTAMP}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.Pojo.PlanPk10" >
+    insert into plan_pk10
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="planid != null" >
+        planId,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="expect != null" >
+        expect,
+      </if>
+      <if test="plannumber != null" >
+        planNumber,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="profit != null" >
+        profit,
+      </if>
+      <if test="opentime != null" >
+        openTime,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="planid != null" >
+        #{planid,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="expect != null" >
+        #{expect,jdbcType=BIGINT},
+      </if>
+      <if test="plannumber != null" >
+        #{plannumber,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="profit != null" >
+        #{profit,jdbcType=DECIMAL},
+      </if>
+      <if test="opentime != null" >
+        #{opentime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.Pojo.PlanPk10Example" resultType="java.lang.Integer" >
+    select count(*) from plan_pk10
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update plan_pk10
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.planid != null" >
+        planId = #{record.planid,jdbcType=BIGINT},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.expect != null" >
+        expect = #{record.expect,jdbcType=BIGINT},
+      </if>
+      <if test="record.plannumber != null" >
+        planNumber = #{record.plannumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.profit != null" >
+        profit = #{record.profit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.opentime != null" >
+        openTime = #{record.opentime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createtime != null" >
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatetime != null" >
+        updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update plan_pk10
+    set id = #{record.id,jdbcType=BIGINT},
+      planId = #{record.planid,jdbcType=BIGINT},
+      state = #{record.state,jdbcType=INTEGER},
+      expect = #{record.expect,jdbcType=BIGINT},
+      planNumber = #{record.plannumber,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      profit = #{record.profit,jdbcType=DECIMAL},
+      openTime = #{record.opentime,jdbcType=TIMESTAMP},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      updateTime = #{record.updatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.Pojo.PlanPk10" >
+    update plan_pk10
+    <set >
+      <if test="planid != null" >
+        planId = #{planid,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="expect != null" >
+        expect = #{expect,jdbcType=BIGINT},
+      </if>
+      <if test="plannumber != null" >
+        planNumber = #{plannumber,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="profit != null" >
+        profit = #{profit,jdbcType=DECIMAL},
+      </if>
+      <if test="opentime != null" >
+        openTime = #{opentime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.Pojo.PlanPk10" >
+    update plan_pk10
+    set planId = #{planid,jdbcType=BIGINT},
+      state = #{state,jdbcType=INTEGER},
+      expect = #{expect,jdbcType=BIGINT},
+      planNumber = #{plannumber,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      profit = #{profit,jdbcType=DECIMAL},
+      openTime = #{opentime,jdbcType=TIMESTAMP},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
